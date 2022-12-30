@@ -1,0 +1,394 @@
+= Tạo môi trường phát triển
+:toc: left
+:source-highlighter: highlightjs
+:ext: adoc
+:sectnums:
+:sectnumlevels: 5
+
+== Môi trường phát triển Java
+
+* Version Java thì sử dụng JDK11 (https://adoptium.net/)
+* Eclipse thì sử dụng release 2021-09 của Pleiades All in One Eclipse +
+Hãy download từ https://tech.d-circle.com/devtools/pleiades-2021-09-java-win-64bit_20210919.zip[] 
+
+== Thiết lập maven để access vào repository cuar gitlab
+
+. Login vào gitlab.
+
+. Chọn "Edit profile" ở bên phải navigation bar. 
++
+image::../images/開発環境作成/gitlab-edit-profile.png[]
+
+. Chọn "Access Tokens" của sidebar.
++
+image::../images/開発環境作成/gitlab-access-tokens.png[]
+
+. Ở trang Personal Access Tokens, nhập（tùy ý cũng được）tên token, chọn "api" ở Scope, nhấn nút "Create personal access token" để tạo token.
+
+. Tạo token, copy token đã tạo đang hiển thị trên màn hình.
++
+image::../images/開発環境作成/gitlab-personal-access-token.png[]
+
+. Mở settings.xml của maven.（Một trong các file dưới đây）
+* PE4JDEV3/tools/maven/conf/settings.xml
+* ユーザのホームディレクトリ/.m2/settings.xml
+
+. Thêm phần mô tả dưới đây vào setting.xml. Thiết lập giá trị của Private-Token vào giá trị của Personal Access Tokens đã tạo ở trên. +
++
+----
+<settings>
+  <servers>
+    <server>
+      <id>gitlab-maven</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Private-Token</name>
+            <value>REPLACE_WITH_YOUR_PERSONAL_ACCESS_TOKEN</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+  </servers>
+</settings>
+----
+
+== Install Eclipse
+
+. Giải nén Pleiades All in One Eclipse đã download bằng *7-Zip* thành một đường dẫn ngắn không chứa tiếng Nhật hoặc dấu cách.(Ví dụ：C:\pleiades)
+
+== Setting Eclipse
+
+NOTE: Eclipse Setting được lưu trong mỗi workspace.
+Trường hợp tạo mới workspace để phát triển thì cần thiết lập trong mỗi workspace.
+
+=== Setting Editor
+
+. Mở「設定」ー「一般」ー「エディター」ー「テキスト・エディター」
+. Thiết lập như bên dưới.
++
+image::../images/開発環境作成/eclipse-text-editor-setting.png[]
+* Đặt「表示されるタブの幅」là 4
+* Check「行番号の表示」
+* Check「タブでスペースを挿入」
+* Check「印刷マージンの表示」, đặt「印刷マージンの表示」là 120.
+* Check tại「空白文字を表示」
+
+=== Setting member sort order
+
+. Mở「設定」－「Java」－「外観」－「メンバ・ソート順序」
+. Thiết lập như bên dưới.
++
+image::../images/開発環境作成/eclipse-setting_1.png[]
+* Thứ tự sort theo Eclipse Default.
+* Đưa「同じカテゴリのメンバを可視性でソート」về trạng thái check và thực hiện thiết lập trình tự như bên dưới.
+** Public
+** Protected
+** Package パッケージ
+** Private
+. Nhấn nút「適用」để lưu cài đặt.
+
+=== Setting code templates
+
+. Mở「設定」－「Java」－「コード・スタイル」－「コード・テンプレート」
+. Nhấn nút「インポート」, chọn "config/eclipse/eclipse-java-codetemplates.xml" của folder source rồi nhấn「開く」
+. Nhấn nút「適用」để lưu thiết lập.
+
+=== Setting Formatter
+
+. Mở「設定」－「Java」－「コード・スタイル」－「フォーマッタ」
+. Nhấn nút「インポート」, chọn "config/eclipse/eclipse-java-codeformat.xml" của folder source rồi nhấn「開く」
+. Nhấn nút「適用」để lưu thiết lập.
+
+=== Setting Cleanup 
+
+. Mở「設定」－「Java」－「コード・スタイル」－「クリーンアップ」
+. Nhấn nút「インポート」, chọn "config/eclipse/eclipse-java-codecleanup.xml" của folder source rồi nhấn「開く」
+. Nhấn nút「適用」để lưu thiết lập.
+
+=== Setting Checkstyle 
+
+. Mở「設定」－「Checkstyle」
++
+image::../images/開発環境作成/eclipse-checkstyle-setting-1.png[]
+. Nhấn nút「新規」.
+. Màn hình property configuration check チェック構成プロパティ sẽ hiển thị. Nhập nội dung bên dưới vào và nhấn「OK」.
++
+image::../images/開発環境作成/eclipse-checkstyle-setting-2.png[]
++
+[cols="<,<", options="autowidth"]
+|===
+| Type | External configuration file
+| Name | POWER EGG
+| Location | "config/checkstype/checkstype-config.xml" của source folder
+|===
+. Dialog「未解決のプロパティが見つかりました。」sẽ được hiển thị. Để nguyên như thế và nhấn nút「続行」.
++
+image::../images/開発環境作成/eclipse-checkstyle-setting-3.png[]
+. Chọn cấu hình "POWER EGG" đã được import, nhấn nút「デフォルトとして設定」
++
+image::../images/開発環境作成/eclipse-checkstyle-setting-4.png[]
+. Mở màn hình property project khi import xong, chọn「Ckeckstyle」, bật check ON cho「このプロジェクトでCheckstyleをアクティブにする」. 
+Khi đó, xác nhận "POWER EGG" đang được selected trong cấu hình check.
++
+image::../images/開発環境作成/eclipse-checkstyle-setting-5.png[]
+. Tiến hành thiết lập active Checkstyle cho toàn bộ property.
+
+
+===  Disable Validation(Test)
+
+Nếu chức năng Test của Eclipse đang được kích hoạt thì khi thay đổi source code v.v... chức năng test sẽ hoạt động dẫn đến thời gian chờ dài hơn. Do đó ta disable chức năng Test.
+
+. Mở màn hình setting của Eclipse.
+. Chọn "Validation".
+. Nhấn nút "Disable All".①
+. Nhấn nút "Apply". ②
+
+image::../images/開発環境作成/eclipse-validation-invalid.png[]
+
+=== Console setting
+
+. Mở màn hình setting của Eclipse.
+. Chọn ”Console" của "Run/Debug"（実行/デバッグ）
+. Uncheck "Linit console output"（コンソール出力の制限）
+. Nhấn nút "Apply"（適用）
+
+image::../images/開発環境作成/eclipse-console-setting.png[]
+
+=== Import POWER EGG source code
+
+. Trong Eclipse, chọn "File" -> "import" 
+. Chọn "Existing Maven Projects"（既存Mavenプロジェクト） 
+. Chọn POWER EGG git repository folder đã check out trong Root DirectoryRoot Directory.
+Chọn project dưới đây làm import project rồi thực hiện import.
++
+** BatchClient
+** pe4j-app
+** pej-app-entity
+** pe4j-app-v1
+** pe4j-engine
+** pe4j-engine-entity
+** pe4j-engine-v1
+** pe4j-jpa-main
+** pe4j-jsf-ui
+** pe4j-msgresource
+** pe4j-orgwebsvc
+** pe4j-restwebsvc
+** pe4j-userformat-ui
+** pe4j-webapp
+** pe4j-web-common
+** pe4j-web-common-v1
+** pe4j-webservice-v1
+** pe4x-restwebsvc
+
+. Chọn "File" -> "import" 
+. Chọn 既存プロジェクトをワークスペースへ(Exsisting Projects into Workspae) của 一般(General) 
+. Chọn "resources" của POWER EGG git repository rồi thực hiện import.
+
+=== Thiết lập khởi động Spring Boot
+
+. Tại Boot Dashborad, chọn project của pe4j-webapp
+. Click chuột phải, chọn "Open Config"（構成を開く）（Màn hình thiết lập debug của Eclipse sẽ mở ra.）
+. Mở tab クラスパス(Classpath)
+. Chọn ブートストラップ・エントリー(Bootstrap Entries), click nút 拡張(Advances...)
+. Chọn 外部フォルダーの追加(Add External Folder)
+. Chọn properties folder ①
+. Chọn ブートストラップ・エントリー(Bootstrap Entries) , click nút 拡張(Advances...)
+. Chọn "Add Folders"（フォルダーの追加）
+. Chọn resoruces ②
+
+Màn hình ví dụ sau khi thiết lập
+
+image::../images/開発環境作成/pe4j-webapp-debug-setting.png[]
+
+
+Bằng cách cài đặt như bên trên, khi khởi động pe4j-webapp trong Boot Dashboard, ta có thể đọc Literal file và Property file mà có chứa poweregg.propereties.
+Khi hoàn thành setting thì tắt màn hình setting bằng nút "Close".
+
+==== Thiết lập đích kết nối Database
+
+Đích kết nối Database được chỉ định trong system property khi khởi động Spring Boot, thay vì chỉnh sửa application.yml. 
+Nguyên nhân là do đích kết nối Database có khả năng cao sẽ khác nhau tùy thuộc vào môi trường phát triển của mỗi người.
+Và nếu chỉnh sửa application.yml thì khả năng cao những thay đổi không cần thiết trong application.yml cũng được commit vào repository.
+
+. Trong Boot Dashborad chọn property của pe4j-webapp.
+. Click chuột phải, chọn "Open Config"（構成を開く）（Màn hình thiết lập debug của Eclipse).
+. Mở tab 引数(Arguments).
+. Thiết lập như bên dưới cho VM.
++
+----
+-Dspring.datasource.url=jdbc:postgresql://localhost:5432/pe33db
+-Dspring.datasource.username=pe20
+-Dspring.datasource.password=jupiter
+----
+** spring.datasource.url : URL Database của đích kết nối
+** spring.datasource.username : User Name kết nối DB
+** spring.datasource.password : Password kết nối DB
+
+NOTE::
+Tương tự với đích kết nối Database, giá trị thiết lập của application.yml có thể ghi đè lên bằng cách truyền property khi thực hiện.
+Trường hợp có thay đổi thiết lập tạm thời khi Code/ Test thì không chỉnh sửa applicatin.yml mà hãy set system property.
+
+==== Thiết lập để tránh lỗi Date group command tag error
+
+Trong thư viện EL được sử dụng trong Spring, khi tính năng kiểm tra reserved word 予約語チェック của định danh 識別子 được sử dụng trong biểu thức EL được bật theo mặc định, và hiển thị 「日付グループ」（các nút như 前月、当月）mà được sử dụng trong 「社内メール」,「スケジュール」thì sẽ gây ra lỗi.
+
+Để tránh lỗi này, hãy thêm đối số VM khi khởi động Spring Boot.
+
+. Chọn project pe4j-webapp trong Boot Dashborad.
+. Nhấp chuột phải và chọn "Open Config" （構成を開く）(Màn hình thiết lập debug Eclipse sẽ mở ra.)
+. Mở tab Đối số (Arguments).
+. Cài đặt nội dung sau đây trong đối số VM.
++
+----
+-Dorg.apache.el.parser.SKIP_IDENTIFIER_CHECK=true
+----
+
+Màn hình thiết lập debug sau cài đặt
+
+image::../images/開発環境作成/pe4j-webapp-debug-setting2.png[]
+
+
+=== Khởi động POWER EGG(spring)
+
+. Mở Boot Dashboard.
+. Chọn pe4j-webapp... ①
+. Nhấn nút "実行" hoặc "デバッグ" ... ②
+
+image::../images/開発環境作成/eclipse-boot-dashboard.png[]
+
+NOTE::
+Trường hợp muốn khởi động lại application, chẳng hạn như sau khi chỉnh sửa source code, thì khởi động lại Spring Boot bằng cách click vào icon reload trên console view.
++
+image::../images/開発環境作成/eclipse-reload-spring-boot.png[]
+
+NOTE:: Về trường hợp cần reload application.
+Về cơ bản, nếu đã thực hiện thay đổi source code Java (them class, method v.v...) thì cần reload application.
+Tuy nhiên, trường hợp đang khởi động debug và chỉ thay đổi logic trong method, thì phần thay đổi vẫn được phản ánh mà không cần reload application.
+Trường hợp chỉ thay đổi Web resource như xhtml, javascript v.v... thì không cần reload application. Chỉ cần cho hiển thị lại màn hình trong browser để các thay đổi được phản ảnh.
+
+== Keyword search server settings
+
+Để thực hiện test keyword search, cần khởi động Solr.
+Vì rất rắc rối khi cài đặt Solr riêng lẻ, chúng tôi sẽ sử dụng Docker Image đã chuẩn bị trước.
+
+
+=== Docker Install
+
+Install Docker Desktop vào local PC.
+Về cách install vui lòng tham khảo file trong cùng thư mục: Docker Desktop(Windows)のインストール [dc-dev].pdf
+ 
+=== Login to gitlab repository
+
+docker image có trong gitlab server.
+
+Ta login từ docker vào gitlab để lấy image.
+
+. Mở command project.
+. Chạy command bên dưới để login từ docker vào gitlab.
++
+----
+docker login gitlab.d-circle.com:5050
+----
+** Sẽ có yêu cầu nhập user ID & password, hãy nhập user ID & password của gitlab vào.
+
+=== Tạo docker-compose.yml
+
+Tạo file docker-compose.yml để chạy Index update program bằng docker với solr.
+
+. Tạo folder để lưu file docker-compose.（VD： C:\docker\pe-search）
+. Tạo file docker-compose.yml trong folder đã tạo với nội dung bên dưới.
++
+----
+version: '3'
+services:
+  solr:
+    image: gitlab.d-circle.com:5050/product/pe4j/solr:3.3
+    environment:
+      TZ: "Asia/Tokyo"
+    ports:
+      - 8983:8983
+    volumes:
+      - solr_data:/var/solr/data
+
+  peindex:
+    image: gitlab.d-circle.com:5050/product/pe4j/fts-index:3.3
+    depends_on:
+      - solr
+    environment:
+      TZ: "Asia/Tokyo"
+      SOLR_URL: "http://host.docker.internal:8983"
+      DBURL: "host.docker.internal:5432/pe33db"
+      DBUSER: "pe20"
+      DBPASSWORD: "jupiter"
+    command:
+      /opt/PE4J/PESEARCH/bin/updateIndex.sh
+
+  peindex4WebDB:
+    image: gitlab.d-circle.com:5050/product/pe4j/fts-index:3.3
+    depends_on:
+      - solr
+    environment:
+      TZ: "Asia/Tokyo"
+      SOLR_URL: "http://host.docker.internal:8983"
+      DBURL: "host.docker.internal:5432/pe33db"
+      DBUSER: "pe20"
+      DBPASSWORD: "jupiter"
+    command:
+      /opt/PE4J/PESEARCH/bin/updateIndex_WebDB.sh
+
+volumes:
+    solr_data:
+----
+NOTE::
+Hãy chỉnh sửa giá trị DBURL, DBUSER, DBPASSWORD trong file cho phù hợp với môi trường.
+Trường hợp chạy DB bằng PC local thì tên host là host.docker.internal.
+
+. Lưu file.
+
+=== Khởi động dịch vụ liên quan đến keyword search
+
+. Mở command project.
+. Di chuyển đến folder có docker-compose.yml
+. Chạy command bên dưới.
++
+docker-compose up -d
+
+Nhờ chạy command, docker image được download từ server và thực thi.
+
+* solr
+* Xử lý Index update(Khác WebDB)
+* Xử lý Index update(WebDB)
+
+3 container trên được khởi động.
+
+NOTE::
+Khi khởi động thì container "pesearch" được đăng ký vào Docker Desktop.
+Trường hợp chẳng hạn như khởi động lại PC thì có thể khởi động container từ Docker Desktop.
++
+image::../images/開発環境作成/solr-docker-3.png[]
+
+
+=== Tạo index dùng cho keyword search (Chỉ lần đầu tiên)
+
+Ngay sau khi cài đặt dịch vụ keyword search, index dữ liệu được lưu trữ trong DB không được tạo.
+Ngay sau khi cài đặt, cần tạo keyword từ nội dung của DB theo các bước sau.
+
+. Khởi động Docker Desktop, triển khai "pesearch" từ Containers, di con trỏ chuột qua container "pesearch-peindex-1" và click vào icon「cli」.
++
+image::../images/開発環境作成/solr-docker-1.png[]
+. Khởi động terminal.
++
+image::../images/開発環境作成/solr-docker-2.png[]
+. Trong terminal đã khởi động, di chuyển đến folder /opt/PE4J/PESEARCH/bin .
++
+----
+cd /opt/PE4J/PESEARCH/bin
+----
+. Chạy command tạo index dưới đây để tạo index.
++
+----
+./createIndex.sh
+./createIndex_WebDB.sh
+----
+. Tạo index xong thì kết thúc project bằng command exit.
