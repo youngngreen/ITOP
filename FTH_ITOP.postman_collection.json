@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "0d770c6a-0cf7-41bc-a517-59c68b1a423e",
+		"name": "FTH_ITOP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"anhlt\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "anhlt",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/auth/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snap shot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/auth/snapshot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"snapshot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ITOP-getMaster",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmhsdCIsInJvbGUiOiIxIiwibmFtZSI6IkxlIFR1YW4gQW5oIiwidXNlck5hbWUiOiJhbmhsdCIsImV4cCI6MTY3Mjg5MjQ4NiwiaWF0IjoxNjcyODA2MDg2fQ.CO_65xvldSwmTAgoP9nEvC4jojbBEgcn-a-t48RZw0725imwAbxnNBCoP9RJybW8Yb11Wri-6XYAGn3aie_bVg",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"masterCode\":\"SELECT-VIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/master/itemMaster",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"master",
+						"itemMaster"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get VIN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmhsdCIsInJvbGUiOiIxIiwibmFtZSI6IkxlIFR1YW4gQW5oIiwidXNlck5hbWUiOiJhbmhsdCIsImV4cCI6MTY3MzA1NjA2OSwiaWF0IjoxNjcyOTY5NjY5fQ.sgYsF6MLjacNi_s73-IDQ9-bbblGfgkJmeYe7sB8I2VpFTANP-lkXXo2UY8NbObjWYF1KydaDyamYroBolvtSQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"searchKey\": \"VIN\",\r\n    \"value\": \"VIN1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/report/getvin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"report",
+						"getvin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "batch job",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vinList\":[\"\"],\r\n    \"reportFlag\":false,\r\n    \"generalServiceFlag\":true,\r\n    \"generalServicePeriod\":{\r\n        \"periodFrom\":\"202301060131\",\r\n        \"periodTo\":\"202301060231\"\r\n    },\r\n    \"generalServiceLogName\":\"PRECNV_GENERAL_SERVICE111222\",\r\n    \"deviceAbnormalFlag\":false,\r\n    \"deviceAbnormalPeriod\":{},\r\n    \"deviceAbnormalLogName\":\"\",\r\n    \"parameterConfigurationFlag\":false,\r\n    \"parameterConfigurationPeriod\":{},\r\n    \"parameterConfigurationLogName\":\"\",\r\n    \"notifySpecialModeFlag\":false,\r\n    \"notifySpecialModePeriod\":{},\r\n    \"notifySpecialModeLogName\":\"\",\r\n    \"dealerWarningFlag\":false,\r\n    \"dealerWarningPeriod\":{},\r\n    \"dealerWarningLogName\":\"\"\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/job/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"job",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "batchjob all",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/job/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"job",
+						"test"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
