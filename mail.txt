@@ -1,1 +1,10 @@
 https://mail.aureole-it.vn/webmail/#mail
+
+URL: https://756478435136.signin.aws.amazon.com/console
+User: fth
+Password: @itdev2022
+
+var jsonData = pm.response.text();
+var json = JSON.parse(jsonData)
+// console.log(json.data.accessToken);
+pm.globals.set("token", json.data.accessToken);
