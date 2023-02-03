@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "7fa189b7-e515-49b6-99b6-c728b000d911",
+		"name": "FTH_ITOP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21474947"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"anhlt\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "anhlt",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "monitor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"status\": \"\",\r\n   \"requestDate\": \"1675270800000\",\r\n   \"user\": \"\",\r\n   \"vinNumber\": \"\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/batch-job/get-monitor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"batch-job",
+						"get-monitor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.text();\r",
+							"var json = JSON.parse(jsonData)\r",
+							"// console.log(json.data.accessToken);\r",
+							"pm.globals.set(\"token\", json.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"requestId\": \"tronghh_1675068565338\",\r\n   \"jobId\": \"348c6583-b9e2-499b-aa30-95fb4c61ad9c\",\r\n   \"status\": \"CANCELLED\",\r\n   \"urlDownload\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/batch-job/change-status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"batch-job",
+						"change-status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel Management",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.text();\r",
+							"var json = JSON.parse(jsonData)\r",
+							"// console.log(json.data.accessToken);\r",
+							"pm.globals.set(\"token\", json.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"requestId\": \"thanhlnt_1675328987756\",\r\n   \"jobId\": \"9b40c59c-3e97-45f8-8c7f-2f8335b874f2\",\r\n   \"status\": \"CANCELLED\",\r\n   \"management\": \"CANCELLED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/batch-job/change-management",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"batch-job",
+						"change-management"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change priority",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.text();\r",
+							"var json = JSON.parse(jsonData)\r",
+							"// console.log(json.data.accessToken);\r",
+							"pm.globals.set(\"token\", json.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"success\": false,\r\n    \"status\": 404,\r\n    \"message\": \"Data not found\",\r\n    \"data\": null\r\n}\r\n{\r\n    \"success\": true,\r\n    \"status\": 200,\r\n    \"message\": null,\r\n    \"data\": [\r\n        {\r\n            \"requestId\": \"thanhlnt_1675330851972\",\r\n            \"priority\": 1,\r\n            \"requestTimeStamp\": \"1675330851972\",\r\n            \"user\": \"thanhlnt\",\r\n            \"vinList\": [\r\n                {\r\n                    \"vin\": \"VIN3\",\r\n                    \"deviceId\": \"LLDCMID3\",\r\n                    \"imei\": \"12140341242143\",\r\n                    \"imsi\": \"11122443\",\r\n                    \"management\": \"CANCEL\",\r\n                    \"jobList\": [\r\n                        {\r\n                            \"jobId\": \"25ff6063-beaf-42e7-bbfb-73422eac0425\",\r\n                            \"logName\": \"NOTIFY_SPECIAL_MODE\",\r\n                            \"typeReport\": \"5\",\r\n                            \"uri\": \"/aws/lambda/com-PRECNV_NOTIFY_SPECIAL_MODE\",\r\n                            \"periodFrom\": \"1641975926000\",\r\n                            \"periodTo\": \"1675330826000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"4a354bcf-8985-4155-9a6f-2f1ad78ab6ef\",\r\n                            \"logName\": \"Report\",\r\n                            \"typeReport\": \"1\",\r\n                            \"uri\": \"\",\r\n                            \"periodFrom\": \"\",\r\n                            \"periodTo\": \"\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"D:\\\\2022\\\\Fujitsu-thailand\\\\ITOP\\\\ait-itop-tool-backend\\\\public\\\\output\\\\thanhlnt_1675330851972__snapshot_4a354bcf-8985-4155-9a6f-2f1ad78ab6ef.xlsx\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"70c74815-c24b-4230-95b5-fc4b8191f6d4\",\r\n                            \"logName\": \"DEALER_WARNING\",\r\n                            \"typeReport\": \"6\",\r\n                            \"uri\": \"/aws/lambda/com-DEALER_WARNING\",\r\n                            \"periodFrom\": \"1641975926000\",\r\n                            \"periodTo\": \"1675330826000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"769e7c5f-bd3c-466a-9826-fcbd5b6f5c87\",\r\n                            \"logName\": \"DEVICE_ABNORMAL\",\r\n                            \"typeReport\": \"3\",\r\n                            \"uri\": \"/aws/lambda/com-DEALER_DEVICE_ABNORMAL\",\r\n                            \"periodFrom\": \"1641975926000\",\r\n                            \"periodTo\": \"1675330826000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"a3f8e7cf-fd45-4013-b0f5-0e5d055598c1\",\r\n                            \"logName\": \"PARAMETER_CONFIGURATION\",\r\n                            \"typeReport\": \"4\",\r\n                            \"uri\": \"/aws/lambda/com-PRECNV_PARAMETER_CONFIGRATION\",\r\n                            \"periodFrom\": \"1641975926000\",\r\n                            \"periodTo\": \"1675330826000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"c5ee39e1-6091-4353-92e9-179c39d77e79\",\r\n                            \"logName\": \"GENERAL_SERVICE\",\r\n                            \"typeReport\": \"2\",\r\n                            \"uri\": \"/aws/lambda/com-PRECNV_GENERAL_SERVICE\",\r\n                            \"periodFrom\": \"1641975926000\",\r\n                            \"periodTo\": \"1675330826000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        }\r\n                    ]\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"requestId\": \"thanhlnt_1675331048192\",\r\n            \"priority\": 1,\r\n            \"requestTimeStamp\": \"1675331048192\",\r\n            \"user\": \"thanhlnt\",\r\n            \"vinList\": [\r\n                {\r\n                    \"vin\": \"VIN3\",\r\n                    \"deviceId\": \"LLDCMID3\",\r\n                    \"imei\": \"12140341242143\",\r\n                    \"imsi\": \"11122443\",\r\n                    \"management\": \"CANCEL\",\r\n                    \"jobList\": [\r\n                        {\r\n                            \"jobId\": \"2c268dd3-5aec-4bbe-9334-b3ea522f790b\",\r\n                            \"logName\": \"Report\",\r\n                            \"typeReport\": \"1\",\r\n                            \"uri\": \"\",\r\n                            \"periodFrom\": \"\",\r\n                            \"periodTo\": \"\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"D:\\\\2022\\\\Fujitsu-thailand\\\\ITOP\\\\ait-itop-tool-backend\\\\public\\\\output\\\\thanhlnt_1675331048192__snapshot_2c268dd3-5aec-4bbe-9334-b3ea522f790b.xlsx\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"3409a808-1727-4808-bb92-621f7fb5e97d\",\r\n                            \"logName\": \"NOTIFY_SPECIAL_MODE\",\r\n                            \"typeReport\": \"5\",\r\n                            \"uri\": \"/aws/lambda/com-PRECNV_NOTIFY_SPECIAL_MODE\",\r\n                            \"periodFrom\": \"1672652627000\",\r\n                            \"periodTo\": \"1675331027000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"6faa6642-6e36-4e95-86e9-06c29c50ed52\",\r\n                            \"logName\": \"DEVICE_ABNORMAL\",\r\n                            \"typeReport\": \"3\",\r\n                            \"uri\": \"/aws/lambda/com-DEALER_DEVICE_ABNORMAL\",\r\n                            \"periodFrom\": \"1672652627000\",\r\n                            \"periodTo\": \"1675331027000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"86942bf2-9257-434c-b8d3-6c609caa7115\",\r\n                            \"logName\": \"GENERAL_SERVICE\",\r\n                            \"typeReport\": \"2\",\r\n                            \"uri\": \"/aws/lambda/com-PRECNV_GENERAL_SERVICE\",\r\n                            \"periodFrom\": \"1672652627000\",\r\n                            \"periodTo\": \"1675331027000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"d7f2b022-8d9d-41d3-aa5d-b3124b94b161\",\r\n                            \"logName\": \"DEALER_WARNING\",\r\n                            \"typeReport\": \"6\",\r\n                            \"uri\": \"/aws/lambda/com-DEALER_WARNING\",\r\n                            \"periodFrom\": \"1672652627000\",\r\n                            \"periodTo\": \"1675331027000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        },\r\n                        {\r\n                            \"jobId\": \"e720f66e-6d76-4f9d-bb63-dabcef0addc5\",\r\n                            \"logName\": \"PARAMETER_CONFIGURATION\",\r\n                            \"typeReport\": \"4\",\r\n                            \"uri\": \"/aws/lambda/com-PRECNV_PARAMETER_CONFIGRATION\",\r\n                            \"periodFrom\": \"1672652627000\",\r\n                            \"periodTo\": \"1675331027000\",\r\n                            \"status\": \"COMPLETED\",\r\n                            \"urlDownload\": \"\"\r\n                        }\r\n                    ]\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/batch-job/change-priority",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"batch-job",
+						"change-priority"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.text();\r",
+							"var json = JSON.parse(jsonData)\r",
+							"// console.log(json.data.accessToken);\r",
+							"pm.globals.set(\"token\", json.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"requestId\": \"truongph_167533196846\",\r\n   \"jobId\": \"0449f40a-3e03-4377-aaa6-3a9c49cc48dc\",\r\n   \"status\": \"REGISTERED\",\r\n   \"management\": \"CANCELLED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/batch-job/validate-status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"batch-job",
+						"validate-status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
